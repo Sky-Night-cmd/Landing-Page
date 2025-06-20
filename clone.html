@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SmashCode Projects</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    integrity="sha512-yH6XmQoJt9xkpWFeu4vkaRnqlgCq3d+XqIGmRIShOepxFmjXLZ3WDfyHzPxkKjW9EfHi2/EN6eWRcsVaLg0tAw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root {
+      --bg-dark: #0d0d0d;
+      --text-light: #ffffff;
+      --card-radius: 16px;
+      --transition: 0.3s ease;
+      --cyan: #00ffff;
+      --btn-bg: #000;
+      --btn-hover-bg: #fff;
+      --btn-hover-color: #000;
+    }
+
+    /* Reset and base */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #111;
+      border-bottom: 1px solid #222;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      user-select: none;
+    }
+
+    header .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      color: var(--cyan);
+      cursor: default;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color var(--transition);
+      outline-offset: 2px;
+    }
+
+    nav a:focus,
+    nav a:hover {
+      color: var(--cyan);
+      outline: 2px solid var(--cyan);
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+
+    /* Main container */
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto 4rem;
+      padding: 0 1rem;
+      flex-grow: 1;
+    }
+
+    /* Section title */
+    .section-title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.05em;
+      color: var(--cyan);
+      text-align: center;
+    }
+
+    /* Filters */
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .filters span {
+      background-color: #1a1a1a;
+      padding: 0.5rem 1.2rem;
+      border-radius: 9999px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color var(--transition), color var(--transition);
+      color: #ccc;
+    }
+
+    .filters span:hover,
+    .filters span:focus {
+      background-color: #333;
+      color: var(--cyan);
+      outline: none;
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+
+    /* Cards */
+    .card {
+      background: linear-gradient(145deg, #111, #222);
+      padding: 1.2rem 1.5rem 1.8rem;
+      border-radius: var(--card-radius);
+      box-shadow: inset 2px 2px 5px #000, inset -2px -2px 5px #333;
+      transition: transform var(--transition), box-shadow var(--transition);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .card:hover,
+    .card:focus-within {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 30px rgba(0, 255, 255, 0.25);
+      outline: none;
+    }
+
+    /* Gradient variants */
+    .card[data-gradient="yellow"] {
+      background: linear-gradient(145deg, #ffd000, #ff9a00);
+      color: #1a1a1a;
+    }
+
+    .card[data-gradient="blue"] {
+      background: linear-gradient(145deg, #00c6ff, #0072ff);
+      color: #eaf4ff;
+    }
+
+    .card[data-gradient="pink"] {
+      background: linear-gradient(145deg, #ff5e62, #ff9966);
+      color: #1a1a1a;
+    }
+
+    .card[data-gradient="purple"] {
+      background: linear-gradient(145deg, #b24592, #f15f79);
+      color: #fef0f7;
+    }
+
+    .card[data-gradient="green"] {
+      background: linear-gradient(145deg, #00c851, #007e33);
+      color: #e0f8e0;
+    }
+
+    .card[data-gradient="red"] {
+      background: linear-gradient(145deg, #ff416c, #ff4b2b);
+      color: #fff0f0;
+    }
+
+    /* Card text */
+    .card h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.4rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .card p {
+      font-size: 1rem;
+      margin-bottom: 1.25rem;
+      flex-grow: 1;
+      opacity: 0.9;
+      line-height: 1.4;
+    }
+
+    /* Image */
+    .card .image {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 1.2rem;
+      flex-shrink: 0;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      background: #222;
+    }
+
+    .card .image img {
+      width: 100%;
+      display: block;
+      border-radius: 12px;
+      object-fit: cover;
+      height: 180px;
+      transition: transform var(--transition);
+    }
+
+    .card:hover .image img {
+      transform: scale(1.05);
+    }
+
+    /* Button */
+    .card .btn {
+      display: inline-block;
+      padding: 0.5rem 1.2rem;
+      background-color: var(--btn-bg);
+      color: var(--text-light);
+      border-radius: 20px;
+      font-size: 0.9rem;
+      text-decoration: none;
+      font-weight: 600;
+      align-self: flex-start;
+      transition: background-color var(--transition), color var(--transition);
+      box-shadow: 0 0 6px transparent;
+    }
+
+    .card .btn:hover,
+    .card .btn:focus {
+      background-color: var(--btn-hover-bg);
+      color: var(--btn-hover-color);
+      outline: none;
+      box-shadow: 0 0 10px var(--cyan);
+    }
+
+    /* Footer */
+    footer {
+      background-color: #111;
+      padding: 3rem 2rem;
+      margin-top: auto;
+      color: #ccc;
+    }
+
+    footer .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    footer h4 {
+      margin-bottom: 1rem;
+      font-weight: 600;
+      color: var(--cyan);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    footer p {
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
+    footer ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    footer li {
+      margin-bottom: 0.75rem;
+      font-size: 0.95rem;
+    }
+
+    footer li a {
+      color: #ccc;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color var(--transition);
+    }
+
+    footer li a:hover,
+    footer li a:focus {
+      color: var(--cyan);
+      text-decoration: underline;
+      outline: none;
+    }
+
+    footer i {
+      color: var(--cyan);
+      min-width: 18px;
+      text-align: center;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .card .image img {
+        height: 140px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .filters {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo" aria-label="SmashCode logo" role="heading" tabindex="0">SmashCode</div>
+    <nav aria-label="Primary navigation">
+      <ul>
+        <li><a href="#" tabindex="0">Home</a></li>
+        <li><a href="#" tabindex="0">Projects</a></li>
+        <li><a href="#" tabindex="0">Services</a></li>
+        <li><a href="#" tabindex="0">Blogs</a></li>
+        <li><a href="#" tabindex="0">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container" role="main">
+    <h2 class="section-title" tabindex="0">Explore our Projects</h2>
+
+    <div class="filters" role="list" aria-label="Project category filters">
+      <span role="listitem" tabindex="0">Web Development</span>
+      <span role="listitem" tabindex="0">Graphic Design</span>
+      <span role="listitem" tabindex="0">Content Writing</span>
+      <span role="listitem" tabindex="0">Blockchain</span>
+      <span role="listitem" tabindex="0">AI Integration</span>
+    </div>
+
+    <section class="grid" aria-label="Project cards">
+      <!-- 12 Cards -->
+      <article class="card" data-gradient="yellow" tabindex="0" aria-labelledby="wrapp-title"
+        aria-describedby="wrapp-desc">
+        <h3 id="wrapp-title">Wrapp</h3>
+        <p id="wrapp-desc">Wrap up client projects for delivery.</p>
+        <div class="image" aria-hidden="true"><img src="img/1.jpg" alt="Wrapp project screenshot" /></div>
+        <a class="btn" href="#" role="button" tabindex="0" aria-label="View more about Wrapp">View more</a>
+      </article>
+
+      <article class="card" data-gradient="blue" tabindex="0" aria-labelledby="dizzy-title"
+        aria-describedby="dizzy-desc">
+        <h3 id="dizzy-title">Dizzy Angeles</h3>
+        <p id="dizzy-desc">Music artist website with audio player.</p>
+        <div class="image" aria-hidden="true"><img src="img/2.jpg" alt="Dizzy Angeles project screenshot" /></div>
+        <a class="btn" href="#" role="button" tabindex="0" aria-label="View more about Dizzy Angeles">View more</a>
+      </article>
+
+      <article class="card" data-gradient="pink" tabindex="0" aria-labelledby="gitbook-title"
+        aria-describedby="gitbook-desc">
+        <h3 id="gitbook-title">Gitbook AI</h3>
+        <p id="gitbook-desc">Docs styled Gitbook with AI features.</p>
+        <div class="image" aria-hidden="true"><img src="img/3.jpg" alt="Gitbook AI project screenshot" /></div>
+        <a class="btn" href="#" role="button" tabindex="0" aria-label="View more about Gitbook AI">View more</a>
+      </article>
+
+      <article class="card" data-gradient="purple" tabindex="0" aria-labelledby="employee-title"
+        aria-describedby="employee-desc">
+        <h3 id="employee-title">Employee Management</h3>
+        <p id="employee-desc">Manage teams and attendance.</p>
+        <div class="image" aria-hidden="true"><img src="img/4.jpg" alt="Employee Management project screenshot" /></div>
+        <a class="btn" href="#" role="button" tabindex="0" aria-label="View more about Employee Management">View
+          more</a>
+      </article>
+
+      <article class="card" data-gradient="green" tabindex="0" aria-labelledby="flow-title"
+        aria-describedby="flow-desc">
+        <h3 id="flow-title">Flow Writer</h3>
+        <p id="flow-desc">Minimal editor with export options.</p>
+        <div class="image" aria-hidden="true"><img src="img/5.jpg" alt="Flow Writer project screenshot" /></div>
+        <a class="btn" href="#" role="button" tabindex="0" aria-label="View more about Flow Writer">View more</a>
+      </article>
+
+      <article class="card" data-gradient="yellow" tabindex="0" aria-labelledby="techkit-title"
+        aria-describedby="techkit-desc">
+        <h3 id="techkit-title">Tech Kit</h3>
+        <p id="techkit-desc">UI components toolkit with dark mode.</p>
+        <div class="image" aria-hidden="true"><img src="img/6.jpg" alt="Tech Kit project screenshot" /></div>
+        <a class="btn" href="#" role="button" tabindex="0" aria-label="View more about Tech Kit">View more</a>
+      </article>
+
+      <article class="card" data-gradient="red" tabindex="0" aria-labelledby="portfolio-title"
+        aria-describedby="portfolio-desc">
+        <h3 id="portfolio-title">PortfolioX</h3>
+        <p id="portfolio-desc">Personal portfolio template with modern look.</p>
+        <div class="image" aria-hidden="true"><img src="img/7.jpg" alt="PortfolioX project screenshot" /></div>
+        <a class="btn" href="#" role="button" tabindex="0" aria-label="View more about PortfolioX">View more</a>
+      </article>
+
+      <article class="card" data-gradient="blue" tabindex="0" aria-labelledby="crypto-title"
+        aria-describedby="crypto-desc">
+        <h3 id="crypto-title">Crypto Tracker</h3>
+        <p id="crypto-desc">Real-time crypto market analysis dashboard.</p>
+        <div class="image" aria-hidden="true"><img src="img/8.jpg" alt="Crypto Tracker project screenshot" /></div>
+        <a class="btn" href="#" role="button" tabindex="0" aria-label="View more about Crypto Tracker">View more</a>
+      </article>
+
+      <article class="card" data-gradient="green" tabindex="0" aria-labelledby="taskpilot-title"
+        aria-describedby="taskpilot-desc">
+        <h3 id="taskpilot-title">Task Pilot</h3>
+        <p id="taskpilot-desc">Advanced task management system.</p>
+        <div class="image" aria-hidden="true"><img src="img/9.jpg" alt="Task Pilot project screenshot" /></div>
+        <a class="btn" href="#" role="button" tabindex="0" aria-label="View more about Task Pilot">View more</a>
+      </article>
+
+      <article class="card" data-gradient="purple" tabindex="0" aria-labelledby="uxlab-title"
+        aria-describedby="uxlab-desc">
+        <h3 id="uxlab-title">UX Lab</h3>
+        <p id="uxlab-desc">User experience testing and analytics.</p>
+        <div class="image" aria-hidden="true"><img src="img/10.jpg" alt="UX Lab project screenshot" /></div>
+        <a class="btn" href="#" role="button" tabindex="0" aria-label="View more about UX Lab">View more</a>
+      </article>
+
+      <article class="card" data-gradient="pink" tabindex="0" aria-labelledby="blogify-title"
+        aria-describedby="blogify-desc">
+        <h3 id="blogify-title">Blogify</h3>
+        <p id="blogify-desc">Modern blogging platform with CMS.</p>
+        <div class="image" aria-hidden="true"><img src="img/11.jpg" alt="Blogify project screenshot" /></div>
+        <a class="btn" href="#" role="button" tabindex="0" aria-label="View more about Blogify">View more</a>
+      </article>
+
+      <article class="card" data-gradient="red" tabindex="0" aria-labelledby="travelogue-title"
+        aria-describedby="travelogue-desc">
+        <h3 id="travelogue-title">Travelogue</h3>
+        <p id="travelogue-desc">Travel stories and booking interface.</p>
+        <div class="image" aria-hidden="true"><img src="img/12.avif" alt="Travelogue project screenshot" /></div>
+        <a class="btn" href="#" role="button" tabindex="0" aria-label="View more about Travelogue">View more</a>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" role="contentinfo" aria-label="Footer Contact Information">
+      <section aria-labelledby="footer-location">
+        <h4 id="footer-location">
+          <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+          Location
+        </h4>
+        <address>Faisalabad, Punjab, Pakistan</address>
+      </section>
+
+      <section aria-labelledby="footer-contact">
+        <h4 id="footer-contact">
+          <i class="fa-solid fa-phone" aria-hidden="true"></i>
+          Contact
+        </h4>
+        <ul>
+          <li>
+            <i class="fa-solid fa-phone" aria-hidden="true"></i> +92 300 417 1144
+          </li>
+          <li>
+            <i class="fa-solid fa-envelope" aria-hidden="true"></i> info@smashcode.com
+          </li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="footer-social">
+        <h4 id="footer-social">Follow Us</h4>
+        <ul class="social-icons" role="list">
+          <li><i class="fa-brands fa-facebook" aria-hidden="true"></i> Facebook</li>
+          <li><i class="fa-brands fa-instagram" aria-hidden="true"></i> Instagram</li>
+          <li><i class="fa-brands fa-twitter" aria-hidden="true"></i> Twitter</li>
+        </ul>
+      </section>
+    </div>
+  </footer>
+
+</body>
+
+</html>
